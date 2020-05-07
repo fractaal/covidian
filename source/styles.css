@@ -1,5 +1,5 @@
-@import url("./fonts.css")
-
 * {
   font-family: Manrope, sans-serif;
 }
+
+@import url("./fonts.css");
