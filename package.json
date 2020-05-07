@@ -1,0 +1,20 @@
+{
+  "name": "covidian",
+  "version": "1.0.0",
+  "description": "Twitter bot that serves periodic updates regarding the crisis",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index"
+  },
+  "repository": "git+https://github.com/fractaal/covidian.git",
+  "author": "Ben Jude",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/fractaal/covidian/issues"
+  },
+  "homepage": "https://github.com/fractaal/covidian#readme",
+  "private": false,
+  "dependencies": {
+    "node-html-to-image": "^1.2.0"
+  }
+}
