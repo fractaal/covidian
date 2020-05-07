@@ -15,6 +15,7 @@
   "homepage": "https://github.com/fractaal/covidian#readme",
   "private": false,
   "dependencies": {
+    "axios": "^0.19.2",
     "node-html-to-image": "^1.2.0"
   }
 }

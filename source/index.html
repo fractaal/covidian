@@ -3,9 +3,104 @@
 <head>
   <meta charset="UTF-8">
   <title>Image</title>
-  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./styles.css">
+  <style>
+    @import url("./fonts.css");
+
+    :root {
+      --mainbg: #253A7C;
+      --text: #F4F3EE;
+    }
+
+    body {
+      background: var(--mainbg);
+      padding: 20px;
+      margin: 20px;
+      width: 500px;
+    }
+
+    * {
+      font-family: "Objectivity", sans-serif;
+      color: var(--text);
+      padding: 0;
+      margin: 0;
+    }
+
+    .deemphasize {
+      opacity: 0.5;
+    }
+
+    .emphasize { 
+      font-size: 40px;
+      text-shadow: 0px 0px 33px -8px rgba(255,255,255,1);
+    }
+
+    span {
+      border-radius: 10px;
+      padding: 20px;
+      margin: 5px;
+      background-color: rgba(0,0,0,0.1);
+      /*box-shadow: 0px 0px 32px 0px rgba(255,255,255,0.5);*/
+    }
+
+    span:nth-child(odd) {
+      background-color: rgba(255,255,255,0.1);
+
+    }
+
+    .padding {
+      padding: 5px;
+    }
+
+    .good {
+      color: lightgreen;
+    }
+
+    .bad {
+      color: lightsalmon;
+    }
+  </style>
 </head>
 <body>
-  
+  <h1>COVID-19 STATISTICS</h1>
+  <p id="topLabel">{{topLabel}}</p>
+  <br>
+  <div style="display: flex; flex-wrap: wrap;">
+    <span>
+      <div style="display: flex; align-items: center;">
+        <h1 class="emphasize" id="deceased">{{deceased}}</h2>
+        <h1 class="deemphasize padding bad" id="deceasedDelta">{{deceasedDelta}}</h1>
+      </div>
+      <p class="deemphasize">deaths</p>
+    </span>
+    <span>
+      <div style="display: flex; align-items: center;">
+        <h1 class="emphasize" id="infected">{{infected}}</h2>
+        <h1 class="deemphasize padding bad" id="infectedDelta">{{infectedDelta}}</h1>
+      </div>
+      <p class="deemphasize">infected</p>
+    </span>
+    <span>
+      <div style="display: flex; align-items: center;">
+        <h1 class="emphasize" id="recovered">{{recovered}}</h2>
+        <h1 class="deemphasize padding good" id="recoveredDelta">{{recoveredDelta}}</h1>
+      </div>
+      <p class="deemphasize">recovered</p>
+    </span>
+    <span>
+      <div style="display: flex; align-items: center;">
+        <h1 class="emphasize" id="tested">{{tested}}</h2>
+        <h1 class="deemphasize padding good" id="testedDelta">{{testedDelta}}</h1>
+      </div>
+      <p class="deemphasize">tested</p>
+    </span>
+  </div>
+  <br>
+  <p class="deemphasize">{{dataUpdate}}</p>
+  <p class="deemphasize">{{generatedOn}}</p>
+  <br>
+  <p class="deemphasize">Data sourced automatically from apify.com</p>
+  <p class="deemphasize">Generated automatically by Covidian. Stay safe! 💖</p>
+<script defer src="logic.js"></script>
 </body>
 </html>

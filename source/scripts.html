@@ -1,0 +1,52 @@
+<script defer>
+  const dotw = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday"
+  ]
+
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ]
+
+  fetch("https://api.apify.com/v2/datasets/sFSef5gfYg3soj8mb/items?format=json&clean=1").then(async (response) => {
+    let data = await response.json()
+    data.splice(0, data.length - 10);
+    console.log(data.length);
+    let latest = data[data.length-1];
+    let latestDate = new Date(latest.lastUpdatedAtApify)
+
+    document.getElementById("topLabel").innerText = `Philippines (${dotw[latestDate.getDay()]}, ${months[latestDate.getMonth()]} ${latestDate.getDate()}, ${latestDate.getFullYear()})`
+
+    let deathsOverTime = document.getElementById("deathsOverTime").getContext("2d");
+    let deathsOverTimeChart = new Chart(deathsOverTime, {
+      type: "line",
+      data: {
+        labels: data.map(entry => {return entry.lastUpdatedAtApify}),
+        datasets: [{
+          label: "Deaths",
+          data: data.map(entry => {return entry.deceased}),
+        }]
+      }
+    })
+  }).catch(reason => {
+    console.warn("API request failed! ", reason)
+  })
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>

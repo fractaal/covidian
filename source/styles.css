@@ -1,5 +1,53 @@
-* {
-  font-family: Manrope, sans-serif;
+@import url("./fonts.css");
+
+:root {
+  --mainbg: linear-gradient(133deg, rgba(151,64,175,1) 0%, rgba(0,82,255,1) 100%);
+  --text: #F4F3EE;
 }
 
-@import url("./fonts.css");
+body {
+  background: var(--mainbg);
+  margin: 20px;
+  width: 500px;
+  height: 500px;
+}
+
+* {
+  font-family: "Objectivity", sans-serif;
+  color: var(--text);
+  padding: 0;
+  margin: 0;
+}
+
+.deemphasize {
+  opacity: 0.5;
+}
+
+.emphasize { 
+  font-size: 40px;
+  text-shadow: 0px 0px 33px -8px rgba(255,255,255,1);
+}
+
+span {
+  border-radius: 10px;
+  padding: 20px;
+  margin: 5px;
+  background-color: rgba(0,0,0,0.1);
+}
+
+span:nth-child(odd) {
+  background-color: rgba(255,255,255,0.1);
+
+}
+
+.padding {
+  padding: 5px;
+}
+
+.good {
+  color: lightgreen;
+}
+
+.bad {
+  color: lightsalmon;
+}
