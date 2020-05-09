@@ -87,6 +87,10 @@
       box-shadow: 
     }
 
+    .danger {
+      color: red;
+    }
+
   </style>
 </head>
 <body>
@@ -95,16 +99,22 @@
     <br>
     <div style="display: flex; flex-wrap: wrap;">
       <div>
-        <div style="display: flex;">
-          <h1 class="emphasize">{{totalCases}}</h2>
-          <p>total cases</p>
+        <div style="display: flex; align-items:center;">
+          <div style="display: flex; align-items:center;">
+            <h1 class="emphasize">{{totalCases}}</h2>
+          </div>
+          <p style="margin-left: 5px;">total cases</p>
+          <h2 style="margin-left:5px;" class="deemphasize danger">{{deltas.totalCases}}</h2>
         </div>
       </div>
       <br>
       <div class="meter" style="width: 100%;">
         {{#each percentages}}
           <div class="meter-inner" style="background-color: {{bgcolor}};  width: {{percentage}}%; display: flex; flex-direction: column; justify-content: flex-end;">
-            <h2 style="color: {{fgcolor}};">{{number}}</h2>
+            <div style="display: flex; flex-direction: column;">
+              <h2 style="color: {{fgcolor}};">{{number}}</h2>
+              <h2 class="deemphasize danger" style="font-size: 18px;">{{delta}}</h2>
+            </div>
             <p style="color: {{fgcolor}}; margin-top: auto; margin-left: auto;">({{percentage}}%)</p>
           </div>
         {{/each}}
@@ -124,7 +134,10 @@
     <div class="meter" style="width: 100%;">
       {{#each quarantineStatus}}
         <div class="meter-inner" style="background-color: {{bgcolor}};  width: {{percentage}}%; display: flex; flex-direction: column; justify-content: flex-end;">
-          <h2 style="color: {{fgcolor}};">{{number}}</h2>
+            <div style="display: flex; flex-direction: column;">
+              <h2 style="color: {{fgcolor}};">{{number}}</h2>
+              <h2 class="deemphasize danger" style="font-size: 18px;">{{delta}}</h2>
+            </div>
           <p style="color: {{fgcolor}}; margin-top: auto; margin-left: auto;">({{percentage}}%)</p>
         </div>
       {{/each}}
@@ -141,12 +154,15 @@
     <br>
     <p class="deemphasize">Regional data</p>
     <div style="display: grid; grid-template-columns: 1fr 1fr 1fr;">
-      {{#each regions}}
+      {{#each sortedRegions}}
         <span>
             <div style="display: flex; align-items: center;">
-              <p style="margin-right: 50px;">{{@key}}</p>
+              <p style="margin-right: 50px;">{{name}}</p>
               <div style="margin-left: auto; display: flex; flex-direction: column;">
-                <h2>{{number}}</h2>
+                <div style="display: flex; align-items:center;">
+                  <h2>{{number}}</h2>
+                  <h3 style="margin-left: 5px;" class="deemphasize danger">{{delta}}</h3>
+                </div>
                 <p style="margin-top: 5px;">{{percentage}}%</p>
               </div>
             </div>

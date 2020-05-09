@@ -6,6 +6,8 @@ module.exports = {
 
         if (typeof _new[key] === "number" && typeof old[key] === "number") {
           delta[key] = _new[key] - old[key]
+          if (delta[key] > 0) delta[key] = "+" + delta[key];
+          if (delta[key] === 0) delta[key] = "";
         }
   
         if (typeof _new[key] === "object" && typeof old[key] === "object") {
@@ -15,5 +17,17 @@ module.exports = {
       }
     }
     return delta;
-  }
+  },
+
+  stripDeltas(object) {
+    for (let key in object) {
+      if (key === "delta") {
+        delete object[key];
+      } else if (typeof key === "object") {
+        this.stripDeltas(object[key]);
+      }
+    }
+
+    return object;
+  },
 }
