@@ -1,2 +1,4 @@
 node_modules
 image.png
+.env.local
+.env

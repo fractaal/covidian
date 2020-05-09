@@ -1,4 +1,5 @@
 const toImage = require("node-html-to-image");
+const dataTransform = require("./data-transform");
 const fs = require("fs");
 const axios = require("axios").default;
 
@@ -27,48 +28,73 @@ const months = [
   "December"
 ]
 
+let content = dataTransform.getDataSummary();
 
-console.log("Fetching data from API... ⌛")
-axios.get("https://api.apify.com/v2/datasets/sFSef5gfYg3soj8mb/items?format=json").then(async (response) => {
-  let data = await response.data
+content.generatedOn = new Date();
 
-  console.log("Awesome! Got it! ✔")
-  console.log("Transforming data [1/2]... ⏳")
-
-  let latest = data[data.length-1];
-  let secondLatest = data[data.length-2];
-  let latestDate = new Date(latest.lastUpdatedAtApify)
-  let dateNow = new Date();
-
-  let content = {};
-
-  content.topLabel = "Philippines"
-  content.dataUpdate = `Data update on ${dotw[latestDate.getDay()]}, ${months[latestDate.getMonth()]} ${latestDate.getDate()}, ${latestDate.getFullYear()}, ${latestDate.getHours()}:${latestDate.getMinutes()}`
-  content.generatedOn = `Generated on ${dotw[dateNow.getDay()]}, ${months[dateNow.getMonth()]} ${dateNow.getDate()}, ${dateNow.getFullYear()}, ${dateNow.getHours()}:${dateNow.getMinutes()}`
-
-  console.log("Transforming data [2/2]... ⏳")
-
-  for (let entry in latest) {
-    try {
-      content[entry] =`${latest[entry]}`
-      let delta = latest[entry] - secondLatest[entry]
-      if (delta > 0) content[entry + "Delta"] = `+${delta}`
-    } catch(error) {
-      console.warn(error);
-    }
+content.percentages = [
+  {
+    name: "Recovered",
+    number: content.recovered,
+    bgcolor: "#E0DFD5",
+    fgcolor: "#313638",
+    percentage:  ((content.recovered/content.totalCases) * 100).toFixed(0),
+  },
+  {
+    name: "Asymptomatic",
+    number: content.asymptomatic,
+    bgcolor: "#4A6D7C",
+    fgcolor: "#E0DFD5",
+    percentage:  ((content.asymptomatic/content.totalCases) * 100).toFixed(0),
+  },
+  {
+    name: "Mild symptoms",
+    number: content.mild,
+    bgcolor: "#F09D51",
+    fgcolor: "#313638",
+    percentage: ((content.mild/content.totalCases) * 100).toFixed(0),
+  },
+  {
+    name: "Dead",
+    number: content.died,
+    bgcolor: "#171738",
+    fgcolor: "#E0DFD5",
+    percentage:  ((content.died/content.totalCases) * 100).toFixed(0),
   }
+]
 
-  console.log("Done! ✔ Generating image... ⏳")
+content.quarantineStatus = [
+  {
+    name: "Quarantined",
+    number: content.quarantined,
+    bgcolor: "#E0DFD5",
+    fgcolor: "#313638",
+    percentage: ((content.quarantined/content.quarantinedTotalBasis) * 100).toFixed(0),
+  },
+  {
+    name: "Not quarantined",
+    number: content.notQuarantined,
+    bgcolor: "#F09D51",
+    fgcolor: "#313638",
+    percentage: ((content.notQuarantined/content.quarantinedTotalBasis) * 100).toFixed(0),
+  },
+  {
+    name: "No data",
+    number: content.noQuarantineData,
+    bgcolor: "#171738",
+    fgcolor: "#E0DFD5",
+    percentage: ((content.noQuarantineData/content.quarantinedTotalBasis) * 100).toFixed(0),
+  },
+]
 
-  toImage({
-    output: "./image.png",
-    html: fs.readFileSync("./source/index.html", {encoding: "utf-8"}),
-    waitUntil: "networkidle2",
-    content
-  })
 
-  console.log("Operation complete! ✔")
-
-}).catch(reason => {
-  console.warn("API request failed! ❌", reason)
+toImage({
+  output: "./image.png",
+  html: fs.readFileSync("./source/index.hbs", {encoding: "utf-8"}),
+  waitUntil: "networkidle2",
+  content
 })
+
+console.log(content);
+
+console.log("Operation complete! ✔")
