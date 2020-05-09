@@ -1,6 +1,6 @@
 {
   "name": "covidian",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Twitter bot that serves periodic updates regarding the crisis",
   "main": "index.js",
   "scripts": {
