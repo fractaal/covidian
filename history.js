@@ -15,6 +15,10 @@ module.exports = {
     return history;
   },
 
+  getLatest() {
+    return history[history.length-1];
+  },
+
   save(dataset) {
     history.push({...dataset, timestamp: Date.now()});
     writeToFile();

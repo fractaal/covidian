@@ -2,3 +2,5 @@ node_modules
 image.png
 .env.local
 .env
+data
+history.json

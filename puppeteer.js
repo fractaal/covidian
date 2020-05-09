@@ -4,6 +4,7 @@ const path = require("path");
 const fs = require("fs");
 
 (async () => {
+    console.log("Launching browser...")
     const browser = await puppeteer.launch({headless: true});
     const page = await browser.newPage();
     const downloadPath = path.normalize(__dirname + "/data");
@@ -11,12 +12,12 @@ const fs = require("fs");
     let now = new moment().format("YYYYMMDD");
     let actualSelector = `div:contains(${now})[jsaction*=click]`
 
-    console.log('Going to the website...');
+    console.log("Connecting...");
     await page.goto('https://drive.google.com/drive/folders/1PEJZur082d2oLp9ZWaBfp1sj5WIlVBRI', { timeout: 60000, waitUntil: 'networkidle0' })
     await page.addScriptTag({url: "https://code.jquery.com/jquery-3.5.1.min.js"});
     await page.waitFor(1000);
     
-    
+    console.log("Trying operation [1/2]...")
     try {
         await Promise.all([
             page.evaluate((actualSelector) =>
@@ -39,6 +40,8 @@ const fs = require("fs");
 
     await page.waitFor(1000);
 
+    console.log("Trying operation [2/2]...")
+
     await Promise.all([
         page.evaluate(() =>
         {
@@ -52,9 +55,13 @@ const fs = require("fs");
 
     await page.click("div[data-tooltip=I-download]");
 
+    console.log("Done! Downloading...")
+
     await page.waitFor(10000)
 
-    console.log("Done!")
+    console.log("Operation complete! Closing browser")
 
     await browser.close();
+
+    console.log("Browser closed! My work here is done.")
 })();

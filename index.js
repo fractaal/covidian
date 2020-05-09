@@ -1,12 +1,26 @@
 const toImage = require("node-html-to-image");
 const dataTransform = require("./data-transform");
 const history = require("./history");
+const utility = require("./utility");
 const fs = require("fs");
 const axios = require("axios").default;
+const schedule = require("node-schedule");
+
+/*
+let job = schedule.scheduleJob({hour: 20, minute: 30}, function() {
+
+})
+*/
 
 let content = dataTransform.getDataSummary();
 
 content.generatedOn = new Date();
+
+let last = history.getLatest();
+
+console.log(utility.getDeltas(content, last));
+
+return;
 
 content.percentages = [
   {
@@ -71,6 +85,6 @@ toImage({
   content
 })
 
-console.log(content);
+history.save(content);
 
 console.log("Operation complete! ✔")
