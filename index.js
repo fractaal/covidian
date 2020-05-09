@@ -4,8 +4,6 @@ const history = require("./history");
 const fs = require("fs");
 const axios = require("axios").default;
 
-import "constants";
-
 let content = dataTransform.getDataSummary();
 
 content.generatedOn = new Date();
