@@ -47,7 +47,7 @@ module.exports = {
       died: 0,
       regions: {},
       file: fs.readdirSync(__dirname + "/data")[0],
-      filehash: crypto.createHash("md5").update(fs.readFileSync(__dirname + "/data/" + fs.readdirSync(__dirname + "/data")[0], {encoding: "utf-8"})).digest("hex");
+      filehash: crypto.createHash("md5").update(fs.readFileSync(__dirname + "/data/" + fs.readdirSync(__dirname + "/data")[0], {encoding: "utf-8"})).digest("hex")
     }
     
     records.map(entry => {
