@@ -2,6 +2,7 @@ const puppeteer = require("puppeteer");
 const moment = require("moment");
 const path = require("path");
 const fs = require("fs");
+const utility = require("./utility");
 
 (async () => {
     console.log("Launching browser...")

@@ -21,7 +21,7 @@ module.exports = {
   },
 
   save(dataset) {
-    if (this.getLatest().file === dataset.file) { console.warn("Abort; already exists"); return;}
+    if (this.getLatest().file === dataset.file) { console.warn("[history.js] Abort; already exists"); return;}
     dataset = utility.stripDeltas(dataset);
     history.push({...dataset, timestamp: Date.now()});
     writeToFile();
