@@ -15,7 +15,7 @@
   "homepage": "https://github.com/fractaal/covidian#readme",
   "private": false,
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "csv-parse": "^4.9.0",
     "dotenv": "^8.2.0",
     "jquery": "^3.5.1",
